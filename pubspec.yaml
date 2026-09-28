@@ -1,0 +1,35 @@
+name: sensors_plus
+description: Flutter plugin for accessing accelerometer, gyroscope, and
+  magnetometer sensors.
+# fork 自 sensors_plus 6.1.1（微信相机选择 wechat_camera_picker 的传递依赖）。
+# 改动：Android 端将 SensorManager 的获取从插件注册时（onAttachedToEngine）
+# 延迟到首次订阅传感器流时（onListen），避免冷启动阶段（隐私弹窗前）访问传感器服务。
+# 上游修复后可删除主工程 dependency_overrides 还原。
+version: 6.1.1-zhny
+homepage: https://github.com/fluttercommunity/plus_plugins
+repository: https://github.com/fluttercommunity/plus_plugins/tree/main/packages/sensors_plus/sensors_plus
+issue_tracker: https://github.com/fluttercommunity/plus_plugins/labels/sensors_plus
+publish_to: none
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: dev.fluttercommunity.plus.sensors
+        pluginClass: SensorsPlugin
+      ios:
+        pluginClass: FPPSensorsPlusPlugin
+      web:
+        pluginClass: WebSensorsPlugin
+        fileName: src/sensors_plus_web.dart
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  sensors_plus_platform_interface: ^2.0.1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: ">=3.19.0"
